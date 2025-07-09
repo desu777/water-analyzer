@@ -1,0 +1,122 @@
+[
+    {
+      "nazwa_wody": "Żywiec Zdrój",
+      "mineralizacja_ogolna_mg_l": 248,
+      "wapn_ca_mg_l": 54.1,
+      "magnez_mg_mg_l": 8.8,
+      "sod_na_mg_l": 13.4,
+      "potas_k_mg_l": null,
+      "siarczany_so4_mg_l": null,
+      "wodoroweglany_hco3_mg_l": 140.3,
+      "krzemionka_sio2_mg_l": null,
+      "charakterystyka": "Niskozmineralizowana, delikatna w smaku, odpowiednia do codziennego spożycia dla każdego, w tym dla niemowląt."
+    },
+    {
+      "nazwa_wody": "Primavera",
+      "mineralizacja_ogolna_mg_l": 251,
+      "wapn_ca_mg_l": 48.1,
+      "magnez_mg_mg_l": 6.7,
+      "sod_na_mg_l": 2.1,
+      "potas_k_mg_l": 1.2,
+      "siarczany_so4_mg_l": 10.3,
+      "wodoroweglany_hco3_mg_l": 149.5,
+      "krzemionka_sio2_mg_l": null,
+      "charakterystyka": "Niskozmineralizowana, z bardzo niską zawartością sodu, idealna do diety niskosodowej i dla niemowląt."
+    },
+    {
+      "nazwa_wody": "Kropla Beskidu",
+      "mineralizacja_ogolna_mg_l": 347,
+      "wapn_ca_mg_l": 41.0,
+      "magnez_mg_mg_l": 16.0,
+      "sod_na_mg_l": 14.0,
+      "potas_k_mg_l": 1.2,
+      "siarczany_so4_mg_l": 37.0,
+      "wodoroweglany_hco3_mg_l": 165.0,
+      "krzemionka_sio2_mg_l": null,
+      "charakterystyka": "Na granicy wody nisko- i średniozmineralizowanej, z dobrym stosunkiem wapnia do magnezu."
+    },
+    {
+      "nazwa_wody": "Dobrowianka",
+      "mineralizacja_ogolna_mg_l": 420,
+      "wapn_ca_mg_l": 58.1,
+      "magnez_mg_mg_l": 33.4,
+      "sod_na_mg_l": 2.0,
+      "potas_k_mg_l": null,
+      "siarczany_so4_mg_l": null,
+      "wodoroweglany_hco3_mg_l": 372.2,
+      "krzemionka_sio2_mg_l": null,
+      "charakterystyka": "Średniozmineralizowana, doskonałe źródło magnezu przy bardzo niskiej zawartości sodu."
+    },
+    {
+      "nazwa_wody": "Kinga Pienińska",
+      "mineralizacja_ogolna_mg_l": 537,
+      "wapn_ca_mg_l": 81.3,
+      "magnez_mg_mg_l": 20.9,
+      "sod_na_mg_l": 14.1,
+      "potas_k_mg_l": 2.2,
+      "siarczany_so4_mg_l": 19.9,
+      "wodoroweglany_hco3_mg_l": 329.6,
+      "krzemionka_sio2_mg_l": 10.6,
+      "charakterystyka": "Średniozmineralizowana, bardzo zrównoważona w smaku i składzie, świetna na co dzień."
+    },
+    {
+      "nazwa_wody": "Ustronianka",
+      "mineralizacja_ogolna_mg_l": 520,
+      "wapn_ca_mg_l": 95.0,
+      "magnez_mg_mg_l": 16.6,
+      "sod_na_mg_l": 6.8,
+      "potas_k_mg_l": 1.3,
+      "siarczany_so4_mg_l": 46.0,
+      "wodoroweglany_hco3_mg_l": 305.2,
+      "krzemionka_sio2_mg_l": null,
+      "charakterystyka": "Średniozmineralizowana, dobre źródło wapnia z niską zawartością sodu."
+    },
+    {
+      "nazwa_wody": "Jurajska",
+      "mineralizacja_ogolna_mg_l": 541,
+      "wapn_ca_mg_l": 69.7,
+      "magnez_mg_mg_l": 34.0,
+      "sod_na_mg_l": 9.4,
+      "potas_k_mg_l": 3.2,
+      "siarczany_so4_mg_l": 42.1,
+      "wodoroweglany_hco3_mg_l": 317.5,
+      "krzemionka_sio2_mg_l": null,
+      "charakterystyka": "Średniozmineralizowana, z idealnym, prozdrowotnym stosunkiem wapnia do magnezu (ok. 2:1)."
+    },
+    {
+      "nazwa_wody": "Polaris",
+      "mineralizacja_ogolna_mg_l": 520,
+      "wapn_ca_mg_l": 102.2,
+      "magnez_mg_mg_l": 19.4,
+      "sod_na_mg_l": 7.3,
+      "potas_k_mg_l": 1.3,
+      "siarczany_so4_mg_l": 89.0,
+      "wodoroweglany_hco3_mg_l": 238.0,
+      "krzemionka_sio2_mg_l": null,
+      "charakterystyka": "Średniozmineralizowana, dobre źródło wapnia przy bardzo niskiej zawartości sodu."
+    },
+    {
+      "nazwa_wody": "Nałęczowianka",
+      "mineralizacja_ogolna_mg_l": 647,
+      "wapn_ca_mg_l": 114.2,
+      "magnez_mg_mg_l": 21.3,
+      "sod_na_mg_l": 10.0,
+      "potas_k_mg_l": 2.4,
+      "siarczany_so4_mg_l": null,
+      "wodoroweglany_hco3_mg_l": 476.2,
+      "krzemionka_sio2_mg_l": 21.5,
+      "charakterystyka": "Średniozmineralizowana, bogata w wapń i krzemionkę, o właściwościach alkalizujących."
+    },
+    {
+      "nazwa_wody": "Cisowianka",
+      "mineralizacja_ogolna_mg_l": 742,
+      "wapn_ca_mg_l": 130.3,
+      "magnez_mg_mg_l": 21.9,
+      "sod_na_mg_l": 11.0,
+      "potas_k_mg_l": 4.3,
+      "siarczany_so4_mg_l": null,
+      "wodoroweglany_hco3_mg_l": 518.8,
+      "krzemionka_sio2_mg_l": 22.1,
+      "charakterystyka": "Na granicy wód średnio- i wysokozmineralizowanych, doskonałe źródło wapnia."
+    }
+  ]
