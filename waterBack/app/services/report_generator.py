@@ -141,7 +141,7 @@ class ReportGenerator:
         
         # Base body text
         self.styles.add(ParagraphStyle(
-            name='BodyText',
+            name='WaterBodyText',
             parent=self.styles['Normal'],
             fontName=base_font,
             spaceAfter=8
@@ -299,7 +299,7 @@ class ReportGenerator:
                             story.append(Paragraph(formatted_paragraph, self.styles['WaterSuccess']))
                         else:
                             # Regular paragraph
-                            story.append(Paragraph(formatted_paragraph, self.styles['BodyText']))
+                            story.append(Paragraph(formatted_paragraph, self.styles['WaterBodyText']))
                         
                         story.append(Spacer(1, 6))
                 
@@ -310,7 +310,7 @@ class ReportGenerator:
             # Fallback: add raw content with basic formatting
             formatted_content = self._markdown_to_reportlab(analysis_result)
             story.append(Paragraph("Wyniki Analizy", self.styles['WaterSubtitle']))
-            story.append(Paragraph(formatted_content, self.styles['BodyText']))
+            story.append(Paragraph(formatted_content, self.styles['WaterBodyText']))
     
     def _parse_markdown_sections(self, content: str) -> Dict[str, str]:
         """Parse markdown content into sections"""
@@ -352,7 +352,7 @@ class ReportGenerator:
         </para>
         """.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
         
-        story.append(Paragraph(footer_text, self.styles['BodyText']))
+        story.append(Paragraph(footer_text, self.styles['WaterBodyText']))
     
     def get_report_path(self, analysis_id: str) -> str:
         """Get report file path"""
