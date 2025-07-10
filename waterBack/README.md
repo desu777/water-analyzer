@@ -104,6 +104,9 @@ uvicorn app.main:app --host localhost --port 2104 --reload
 ### Health
 - `GET /api/health` - Health check
 
+### Report Management
+- `GET /api/report-status/{analysis_id}` - Check report availability status
+
 ## 🔄 Analysis Workflow
 
 1. **Upload** (0-10%) - File validation and storage
@@ -153,6 +156,12 @@ Modular prompt system with separate files:
 - Error handling and recovery
 - Background task processing
 
+### Report Management
+- **10-minute report lifetime** - optimal storage management
+- **Automatic cleanup** - reports deleted after download or expiration
+- **Download tracking** - faster cleanup for downloaded reports
+- **Status monitoring** - real-time report availability checking
+
 ## 🔧 Configuration
 
 ### Model Selection
@@ -171,6 +180,13 @@ DEBUG_MODE=true
 ### File Limits
 ```env
 MAX_PDF_SIZE_MB=10
+```
+
+### Report Cleanup
+```env
+REPORT_LIFETIME_MINUTES=10          # Report expiration time
+CLEANUP_INTERVAL_MINUTES=5          # Cleanup check frequency
+POST_DOWNLOAD_CLEANUP_MINUTES=1     # Time after download to delete
 ```
 
 ## 🛠️ Development

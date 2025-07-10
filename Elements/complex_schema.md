@@ -8,7 +8,7 @@
 4. **[Zanieczyszczenia i składniki monitorowane](#zanieczyszczenia-i-składniki-monitorowane)** - Substancje pod ścisłą kontrolą
 5. **[Elementy główne](#elementy-główne)** - Składniki decydujące o mineralizacji
 6. **[Składniki odżywcze](#składniki-odżywcze)** - Fosfor i fosforany
-7. **[Dodatkowe sekcje](#dodatkowe-sekcje)** - Odpowiedzi AI, badania, porady
+
 
 ---
 

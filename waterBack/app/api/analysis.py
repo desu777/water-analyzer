@@ -8,6 +8,7 @@ from app.utils.validation import validate_analysis_id
 from app.utils.logger import log_debug, log_error, log_info
 from app.services.workflow_manager import workflow_manager
 from app.services.report_generator import report_generator
+from app.services.report_cleanup import cleanup_service
 
 router = APIRouter()
 
@@ -77,11 +78,19 @@ async def get_analysis_result(
                 detail=f"Analysis not completed. Current status: {session.status}"
             )
         
-        # Check if report exists
-        if not report_generator.report_exists(analysis_id):
+        # Check if report exists and is not expired
+        report_status = cleanup_service.get_report_status(analysis_id)
+        
+        if not report_status["exists"]:
             raise HTTPException(
                 status_code=404,
-                detail="Analysis report not found"
+                detail="Analysis report not found or expired"
+            )
+        
+        if report_status["expired"]:
+            raise HTTPException(
+                status_code=410,
+                detail=f"Analysis report expired (available for 10 minutes only). Age: {report_status['age_minutes']:.1f} minutes"
             )
         
         # Calculate processing time
@@ -179,11 +188,19 @@ async def download_analysis_pdf(
                 detail="Invalid analysis ID format"
             )
         
-        # Check if report exists
-        if not report_generator.report_exists(analysis_id):
+        # Check if report exists and is not expired
+        report_status = cleanup_service.get_report_status(analysis_id)
+        
+        if not report_status["exists"]:
             raise HTTPException(
                 status_code=404,
-                detail="Analysis report not found"
+                detail="Analysis report not found or expired"
+            )
+        
+        if report_status["expired"]:
+            raise HTTPException(
+                status_code=410,
+                detail=f"Analysis report expired (available for 10 minutes only). Age: {report_status['age_minutes']:.1f} minutes"
             )
         
         # Get report path
@@ -196,7 +213,10 @@ async def download_analysis_pdf(
         if session and session.context:
             original_filename = f"analiza_{session.context.originalFilename.replace('.pdf', '')}.pdf"
         
-        log_info(f"PDF download started for {analysis_id}", "ANALYSIS_API")
+        # Mark as downloaded for faster cleanup
+        cleanup_service.mark_report_downloaded(analysis_id)
+        
+        log_info(f"PDF download started for {analysis_id} (marked as downloaded)", "ANALYSIS_API")
         
         return FileResponse(
             path=report_path,
@@ -214,4 +234,40 @@ async def download_analysis_pdf(
         raise HTTPException(
             status_code=500,
             detail="Failed to download analysis report"
+        )
+
+@router.get("/report-status/{analysis_id}")
+async def get_report_status(
+    analysis_id: str = Path(..., description="Analysis ID")
+):
+    """
+    Get report availability status
+    """
+    try:
+        # Validate analysis ID
+        if not validate_analysis_id(analysis_id):
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid analysis ID format"
+            )
+        
+        # Get report status
+        report_status = cleanup_service.get_report_status(analysis_id)
+        
+        return {
+            "analysisId": analysis_id,
+            "exists": report_status["exists"],
+            "expired": report_status["expired"],
+            "ageMinutes": report_status.get("age_minutes", 0),
+            "downloaded": report_status.get("downloaded", False),
+            "expiresIn": max(0, 10 - report_status.get("age_minutes", 0)) if report_status["exists"] else 0
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        log_error(f"Get report status failed for {analysis_id}: {str(e)}", "ANALYSIS_API")
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to get report status"
         ) 

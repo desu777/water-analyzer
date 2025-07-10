@@ -22,6 +22,11 @@ class Settings:
     # Security
     SECRET_KEY: str = os.getenv('SECRET_KEY', 'your-secret-key-change-in-production')
     ALGORITHM: str = os.getenv('ALGORITHM', 'HS256')
+    
+    # Report Cleanup
+    REPORT_LIFETIME_MINUTES: int = int(os.getenv('REPORT_LIFETIME_MINUTES', '10'))
+    CLEANUP_INTERVAL_MINUTES: int = int(os.getenv('CLEANUP_INTERVAL_MINUTES', '5'))
+    POST_DOWNLOAD_CLEANUP_MINUTES: int = int(os.getenv('POST_DOWNLOAD_CLEANUP_MINUTES', '1'))
 
 class OpenRouterConfig:
     # API Configuration
@@ -85,4 +90,5 @@ if settings.DEBUG_MODE:
     print(f"   🌐 Host: {settings.APP_HOST}:{settings.APP_PORT}")
     print(f"   📁 Upload folder: {settings.UPLOAD_FOLDER}")
     print(f"   🤖 Default model: {openrouter_config.get_model_name(openrouter_config.DEFAULT_MODEL)}")
-    print(f"   🔄 Fallback model: {openrouter_config.get_model_name(openrouter_config.FALLBACK_MODEL)}") 
+    print(f"   🔄 Fallback model: {openrouter_config.get_model_name(openrouter_config.FALLBACK_MODEL)}")
+    print(f"   🗑️ Report cleanup: {settings.REPORT_LIFETIME_MINUTES}min lifetime, {settings.CLEANUP_INTERVAL_MINUTES}min interval") 

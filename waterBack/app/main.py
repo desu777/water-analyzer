@@ -7,6 +7,7 @@ from contextlib import asynccontextmanager
 
 from app.config import settings, openrouter_config
 from app.models.responses import HealthResponse, ApiError
+from app.services.report_cleanup import cleanup_service
 
 
 # Create necessary directories
@@ -30,9 +31,14 @@ async def lifespan(app: FastAPI):
         print(f"   🌐 CORS origins: {settings.CORS_ORIGINS}")
         print(f"   🤖 AI Model: {openrouter_config.get_model_name(openrouter_config.DEFAULT_MODEL)}")
     
+    # Start cleanup service
+    await cleanup_service.start_cleanup_service()
+    
     yield
     
     # Shutdown
+    await cleanup_service.stop_cleanup_service()
+    
     if settings.DEBUG_MODE:
         print("👋 [Shutdown] Water Test Analyzer Backend")
 
