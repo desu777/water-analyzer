@@ -6,7 +6,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.lib.colors import HexColor
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak
 from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_JUSTIFY
 from reportlab.lib import colors
 import markdown
@@ -74,28 +74,6 @@ class ReportGenerator:
             log_error(f"Failed to register custom fonts: {str(e)}", "REPORT_GENERATOR")
             log_warning("Falling back to default fonts - Polish characters may not display correctly", "REPORT_GENERATOR")
             # Don't raise - fall back to default fonts
-    
-    def _markdown_to_reportlab(self, text: str) -> str:
-        """Convert simple markdown formatting to ReportLab XML tags."""
-        if not text:
-            return ""
-        
-        # Escape any existing XML
-        text = text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
-        
-        # Convert **bold** to <b>bold</b>
-        text = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', text)
-        
-        # Convert *italic* to <i>italic</i>
-        text = re.sub(r'\*(.*?)\*', r'<i>\1</i>', text)
-        
-        # Convert bullet points
-        text = re.sub(r'^\s*[\*\-\+]\s+(.+)$', r'• \1', text, flags=re.MULTILINE)
-        
-        # Handle line breaks
-        text = text.replace('\n', '<br/>')
-        
-        return text
 
     def _add_custom_styles(self):
         """Add custom styles for water analysis reports using DejaVu font."""
@@ -117,68 +95,268 @@ class ReportGenerator:
         self.styles['Normal'].fontName = base_font
         self.styles['Italic'].fontName = italic_font
         
-        # Title style
+        # Main title style - improved
         self.styles.add(ParagraphStyle(
-            name='WaterTitle',
+            name='MainTitle',
             parent=self.styles['Title'],
             fontName=bold_font,
-            fontSize=20,
-            spaceAfter=20,
-            textColor=HexColor('#2563eb'),
+            fontSize=22,
+            spaceAfter=30,
+            spaceBefore=20,
+            textColor=HexColor('#1e40af'),
+            alignment=TA_CENTER,
+            leading=26
+        ))
+        
+        # Subtitle for company name
+        self.styles.add(ParagraphStyle(
+            name='CompanySubtitle',
+            parent=self.styles['Normal'],
+            fontName=italic_font,
+            fontSize=14,
+            spaceAfter=25,
+            textColor=HexColor('#64748b'),
             alignment=TA_CENTER
         ))
         
-        # Subtitle style
+        # Section headers (H1) - improved
         self.styles.add(ParagraphStyle(
-            name='WaterSubtitle',
+            name='SectionHeader',
+            parent=self.styles['Heading1'],
+            fontName=bold_font,
+            fontSize=16,
+            spaceAfter=15,
+            spaceBefore=25,
+            textColor=HexColor('#1e40af'),
+            leftIndent=0,
+            leading=20
+        ))
+        
+        # Subsection headers (H2) - improved
+        self.styles.add(ParagraphStyle(
+            name='SubsectionHeader',
             parent=self.styles['Heading2'],
             fontName=bold_font,
             fontSize=14,
             spaceAfter=12,
-            textColor=HexColor('#1d4ed8'),
-            leftIndent=0
+            spaceBefore=15,
+            textColor=HexColor('#2563eb'),
+            leftIndent=0,
+            leading=18
         ))
         
-        # Base body text
+        # Minor headers (H3) - improved
         self.styles.add(ParagraphStyle(
-            name='WaterBodyText',
+            name='MinorHeader',
+            parent=self.styles['Heading3'],
+            fontName=bold_font,
+            fontSize=12,
+            spaceAfter=8,
+            spaceBefore=10,
+            textColor=HexColor('#374151'),
+            leftIndent=0,
+            leading=16
+        ))
+        
+        # Base body text - improved
+        self.styles.add(ParagraphStyle(
+            name='ReportBodyText',
             parent=self.styles['Normal'],
             fontName=base_font,
-            spaceAfter=8
+            fontSize=11,
+            spaceAfter=10,
+            spaceBefore=2,
+            leading=14,
+            alignment=TA_JUSTIFY
         ))
         
-        # Parameter style (for lists)
+        # Parameter style (for lists) - improved
         self.styles.add(ParagraphStyle(
-            name='WaterParameter',
+            name='ParameterText',
             parent=self.styles['Normal'],
             fontName=base_font,
             fontSize=10,
             spaceAfter=6,
-            leftIndent=20
+            leftIndent=15,
+            bulletIndent=5,
+            leading=13
         ))
         
-        # Warning style
+        # Warning style - improved
         self.styles.add(ParagraphStyle(
-            name='WaterWarning',
+            name='WarningText',
             parent=self.styles['Normal'],
             fontName=base_font,
             fontSize=11,
             spaceAfter=8,
             textColor=HexColor('#dc2626'),
-            leftIndent=10
+            leftIndent=10,
+            borderColor=HexColor('#fca5a5'),
+            borderWidth=1,
+            borderPadding=5,
+            leading=14
         ))
         
-        # Success style
+        # Success style - improved
         self.styles.add(ParagraphStyle(
-            name='WaterSuccess',
+            name='SuccessText',
             parent=self.styles['Normal'],
             fontName=base_font,
             fontSize=11,
             spaceAfter=8,
             textColor=HexColor('#16a34a'),
-            leftIndent=10
+            leftIndent=10,
+            borderColor=HexColor('#86efac'),
+            borderWidth=1,
+            borderPadding=5,
+            leading=14
         ))
-    
+        
+        # Separator style
+        self.styles.add(ParagraphStyle(
+            name='Separator',
+            parent=self.styles['Normal'],
+            fontName=base_font,
+            fontSize=8,
+            spaceAfter=15,
+            spaceBefore=15,
+            textColor=HexColor('#9ca3af'),
+            alignment=TA_CENTER
+        ))
+
+    def _enhanced_markdown_to_reportlab(self, text: str) -> str:
+        """Enhanced markdown to ReportLab conversion with better formatting."""
+        if not text:
+            return ""
+        
+        # Escape any existing XML
+        text = text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+        
+        # Convert **bold** to <b>bold</b>
+        text = re.sub(r'\*\*(.*?)\*\*', r'<b>\1</b>', text)
+        
+        # Convert *italic* to <i>italic</i>
+        text = re.sub(r'\*(.*?)\*', r'<i>\1</i>', text)
+        
+        # Convert bullet points with better formatting
+        text = re.sub(r'^\s*[\*\-\+]\s+(.+)$', r'• \1', text, flags=re.MULTILINE)
+        
+        # Handle numbered lists
+        text = re.sub(r'^\s*(\d+)\.\s+(.+)$', r'\1. \2', text, flags=re.MULTILINE)
+        
+        # Handle line breaks
+        text = text.replace('\n', '<br/>')
+        
+        return text
+
+    def _parse_and_format_content(self, content: str, story: list):
+        """Parse markdown content and add properly formatted elements to story."""
+        if not content.strip():
+            return
+            
+        lines = content.split('\n')
+        current_paragraph = []
+        
+        for line in lines:
+            line = line.strip()
+            
+            # Skip empty lines but process accumulated paragraph
+            if not line:
+                if current_paragraph:
+                    paragraph_text = ' '.join(current_paragraph)
+                    formatted_text = self._enhanced_markdown_to_reportlab(paragraph_text)
+                    story.append(Paragraph(formatted_text, self.styles['ReportBodyText']))
+                    story.append(Spacer(1, 6))
+                    current_paragraph = []
+                continue
+            
+            # Handle separators
+            if line.startswith('---') and len(line.strip('- ')) == 0:
+                # Add accumulated paragraph first
+                if current_paragraph:
+                    paragraph_text = ' '.join(current_paragraph)
+                    formatted_text = self._enhanced_markdown_to_reportlab(paragraph_text)
+                    story.append(Paragraph(formatted_text, self.styles['ReportBodyText']))
+                    current_paragraph = []
+                
+                # Add separator
+                story.append(Spacer(1, 10))
+                story.append(Paragraph("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", self.styles['Separator']))
+                story.append(Spacer(1, 10))
+                continue
+            
+            # Handle headers
+            if line.startswith('###'):
+                # Process accumulated paragraph first
+                if current_paragraph:
+                    paragraph_text = ' '.join(current_paragraph)
+                    formatted_text = self._enhanced_markdown_to_reportlab(paragraph_text)
+                    story.append(Paragraph(formatted_text, self.styles['ReportBodyText']))
+                    current_paragraph = []
+                
+                header_text = line[3:].strip()
+                formatted_header = self._enhanced_markdown_to_reportlab(header_text)
+                story.append(Paragraph(formatted_header, self.styles['MinorHeader']))
+                continue
+                
+            elif line.startswith('##'):
+                # Process accumulated paragraph first
+                if current_paragraph:
+                    paragraph_text = ' '.join(current_paragraph)
+                    formatted_text = self._enhanced_markdown_to_reportlab(paragraph_text)
+                    story.append(Paragraph(formatted_text, self.styles['ReportBodyText']))
+                    current_paragraph = []
+                
+                header_text = line[2:].strip()
+                formatted_header = self._enhanced_markdown_to_reportlab(header_text)
+                story.append(Paragraph(formatted_header, self.styles['SubsectionHeader']))
+                continue
+                
+            elif line.startswith('#'):
+                # Process accumulated paragraph first
+                if current_paragraph:
+                    paragraph_text = ' '.join(current_paragraph)
+                    formatted_text = self._enhanced_markdown_to_reportlab(paragraph_text)
+                    story.append(Paragraph(formatted_text, self.styles['ReportBodyText']))
+                    current_paragraph = []
+                
+                header_text = line[1:].strip()
+                formatted_header = self._enhanced_markdown_to_reportlab(header_text)
+                story.append(Paragraph(formatted_header, self.styles['SectionHeader']))
+                continue
+            
+            # Handle bullet points and lists
+            if line.startswith(('• ', '- ', '* ')) or re.match(r'^\d+\.', line):
+                # Process accumulated paragraph first
+                if current_paragraph:
+                    paragraph_text = ' '.join(current_paragraph)
+                    formatted_text = self._enhanced_markdown_to_reportlab(paragraph_text)
+                    story.append(Paragraph(formatted_text, self.styles['ReportBodyText']))
+                    current_paragraph = []
+                
+                formatted_line = self._enhanced_markdown_to_reportlab(line)
+                
+                # Check for special formatting (only text-based detection)
+                if 'NIEBEZPIECZN' in line.upper() or 'BŁĄD' in line.upper() or 'NIEZGODNE' in line.upper() or 'PRZEKROCZENIE' in line.upper():
+                    story.append(Paragraph(formatted_line, self.styles['WarningText']))
+                elif 'DOBRA' in line.upper() or 'BEZPIECZN' in line.upper() or 'W NORMIE' in line.upper() or 'DOSKONAŁY' in line.upper():
+                    story.append(Paragraph(formatted_line, self.styles['SuccessText']))
+                else:
+                    story.append(Paragraph(formatted_line, self.styles['ParameterText']))
+                
+                story.append(Spacer(1, 4))
+                continue
+            
+            # Regular text - accumulate into paragraph
+            current_paragraph.append(line)
+        
+        # Process any remaining paragraph
+        if current_paragraph:
+            paragraph_text = ' '.join(current_paragraph)
+            formatted_text = self._enhanced_markdown_to_reportlab(paragraph_text)
+            story.append(Paragraph(formatted_text, self.styles['ReportBodyText']))
+            story.append(Spacer(1, 6))
+
     async def generate_pdf_report(self, analysis_id: str, context: AnalysisContext, analysis_result: str) -> str:
         """Generate PDF report from analysis result"""
         try:
@@ -187,27 +365,27 @@ class ReportGenerator:
             # Create PDF file path
             report_path = self.reports_dir / f"{analysis_id}.pdf"
             
-            # Create PDF document
+            # Create PDF document with better margins
             doc = SimpleDocTemplate(
                 str(report_path),
                 pagesize=A4,
-                rightMargin=72,
-                leftMargin=72,
-                topMargin=72,
-                bottomMargin=18
+                rightMargin=60,
+                leftMargin=60,
+                topMargin=60,
+                bottomMargin=60
             )
             
             # Build content
             story = []
             
-            # Add header
-            self._add_header(story, context)
+            # Add header with improved styling
+            self._add_enhanced_header(story, context)
             
-            # Add analysis content
-            self._add_analysis_content(story, analysis_result)
+            # Add analysis content with better parsing
+            self._add_enhanced_analysis_content(story, analysis_result)
             
             # Add footer
-            self._add_footer(story)
+            self._add_enhanced_footer(story)
             
             # Build PDF
             doc.build(story)
@@ -219,13 +397,14 @@ class ReportGenerator:
             log_error(f"PDF report generation failed: {str(e)}", "REPORT_GENERATOR")
             raise
     
-    def _add_header(self, story: list, context: AnalysisContext):
-        """Add header section to PDF"""
-        # Main title
-        story.append(Paragraph("🔬 Analiza Jakości Wody", self.styles['WaterTitle']))
-        story.append(Spacer(1, 12))
+    def _add_enhanced_header(self, story: list, context: AnalysisContext):
+        """Add enhanced header section to PDF"""
+        # Main title - updated as requested
+        story.append(Paragraph("Personalizowana Analiza Jakości Wody", self.styles['MainTitle']))
+        story.append(Paragraph("by Aquaforest Lab", self.styles['CompanySubtitle']))
+        story.append(Spacer(1, 20))
         
-        # Basic information table
+        # Basic information table with better styling
         basic_info = [
             ['Informacje Podstawowe', ''],
             ['Data analizy:', datetime.now().strftime('%Y-%m-%d %H:%M')],
@@ -238,10 +417,8 @@ class ReportGenerator:
             water_data = context.waterData
             if water_data.testDate:
                 basic_info.append(['Data badania:', water_data.testDate])
-            if water_data.laboratory:
-                basic_info.append(['Laboratorium:', water_data.laboratory])
-            if water_data.sampleLocation:
-                basic_info.append(['Lokalizacja próbki:', water_data.sampleLocation])
+            # Always add Laboratory, with a default value
+            basic_info.append(['Laboratorium:', water_data.laboratory or 'Aquaforest Lab'])
         
         # Determine fonts to use
         try:
@@ -252,108 +429,67 @@ class ReportGenerator:
             header_font = 'Helvetica-Bold'
             body_font = 'Helvetica'
         
-        # Create table
-        table = Table(basic_info, colWidths=[2*inch, 4*inch])
+        # Create table with enhanced styling
+        table = Table(basic_info, colWidths=[2.5*inch, 3.5*inch])
         table.setStyle(TableStyle([
             ('BACKGROUND', (0, 0), (1, 0), HexColor('#dbeafe')),
             ('TEXTCOLOR', (0, 0), (1, 0), HexColor('#1e40af')),
             ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
             ('FONTNAME', (0, 0), (1, 0), header_font),
             ('FONTNAME', (0, 1), (-1, -1), body_font),
-            ('FONTSIZE', (0, 0), (-1, -1), 10),
-            ('GRID', (0, 0), (-1, -1), 1, colors.black),
+            ('FONTSIZE', (0, 0), (1, 0), 11),
+            ('FONTSIZE', (0, 1), (-1, -1), 10),
+            ('GRID', (0, 0), (-1, -1), 1, HexColor('#e5e7eb')),
             ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+            ('ROWBACKGROUNDS', (0, 1), (-1, -1), [HexColor('#f9fafb'), HexColor('#ffffff')]),
+            ('TOPPADDING', (0, 0), (-1, -1), 8),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 8),
+            ('LEFTPADDING', (0, 0), (-1, -1), 10),
+            ('RIGHTPADDING', (0, 0), (-1, -1), 10),
         ]))
         
         story.append(table)
-        story.append(Spacer(1, 20))
+        story.append(Spacer(1, 25))
     
-    def _add_analysis_content(self, story: list, analysis_result: str):
-        """Add analysis content to PDF with proper markdown parsing"""
+    def _add_enhanced_analysis_content(self, story: list, analysis_result: str):
+        """Add analysis content to PDF with enhanced markdown parsing"""
         try:
-            # Parse markdown content
-            sections = self._parse_markdown_sections(analysis_result)
-            
-            for section_title, section_content in sections.items():
-                # Add section title (convert any markdown in title)
-                title_text = self._markdown_to_reportlab(section_title)
-                story.append(Paragraph(title_text, self.styles['WaterSubtitle']))
-                story.append(Spacer(1, 6))
-                
-                # Add section content
-                paragraphs = section_content.split('\n\n')
-                for paragraph in paragraphs:
-                    if paragraph.strip():
-                        # Convert markdown to ReportLab format
-                        formatted_paragraph = self._markdown_to_reportlab(paragraph.strip())
-                        
-                        # Process different types of content
-                        if paragraph.startswith('- ') or paragraph.startswith('*'):
-                            # List item
-                            story.append(Paragraph(formatted_paragraph, self.styles['WaterParameter']))
-                        elif '❌' in paragraph or 'NIEBEZPIECZN' in paragraph.upper():
-                            # Warning content
-                            story.append(Paragraph(formatted_paragraph, self.styles['WaterWarning']))
-                        elif '✅' in paragraph or 'DOBRA' in paragraph.upper():
-                            # Success content
-                            story.append(Paragraph(formatted_paragraph, self.styles['WaterSuccess']))
-                        else:
-                            # Regular paragraph
-                            story.append(Paragraph(formatted_paragraph, self.styles['WaterBodyText']))
-                        
-                        story.append(Spacer(1, 6))
-                
-                story.append(Spacer(1, 12))
+            # Use the enhanced content parser
+            self._parse_and_format_content(analysis_result, story)
                 
         except Exception as e:
-            log_error(f"Error adding analysis content: {str(e)}", "REPORT_GENERATOR")
+            log_error(f"Error adding enhanced analysis content: {str(e)}", "REPORT_GENERATOR")
             # Fallback: add raw content with basic formatting
-            formatted_content = self._markdown_to_reportlab(analysis_result)
-            story.append(Paragraph("Wyniki Analizy", self.styles['WaterSubtitle']))
-            story.append(Paragraph(formatted_content, self.styles['WaterBodyText']))
+            formatted_content = self._enhanced_markdown_to_reportlab(analysis_result)
+            story.append(Paragraph("Wyniki Analizy", self.styles['SectionHeader']))
+            story.append(Paragraph(formatted_content, self.styles['ReportBodyText']))
     
-    def _parse_markdown_sections(self, content: str) -> Dict[str, str]:
-        """Parse markdown content into sections"""
-        sections = {}
-        current_section = None
-        current_content = []
+    def _add_enhanced_footer(self, story: list):
+        """Add enhanced footer section to PDF"""
+        story.append(Spacer(1, 30))
         
-        lines = content.split('\n')
-        for line in lines:
-            if line.startswith('# ') or line.startswith('## '):
-                # New section
-                if current_section:
-                    sections[current_section] = '\n'.join(current_content)
-                
-                current_section = line.lstrip('# ')
-                current_content = []
-            else:
-                current_content.append(line)
+        # Add separator line
+        story.append(Paragraph("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", self.styles['Separator']))
+        story.append(Spacer(1, 15))
         
-        # Add last section
-        if current_section:
-            sections[current_section] = '\n'.join(current_content)
-        
-        return sections
-    
-    def _add_footer(self, story: list):
-        """Add footer section to PDF"""
-        story.append(Spacer(1, 20))
-        
-        # Footer information with proper encoding
-        footer_text = """
+        # Footer information with enhanced formatting
+        footer_text = f"""
         <para align="center">
-        <font size="8" color="#666666">
-        Raport wygenerowany automatycznie przez Water Test Analyzer<br/>
-        Data utworzenia: {}<br/>
-        Uwaga: Ten raport służy wyłącznie celom informacyjnym. 
-        W przypadku wykrycia problemów skonsultuj się z ekspertem.
+        <font size="9" color="#374151">
+        <b>Raport wygenerowany automatycznie przez Aquaforest Lab</b><br/>
+        Data utworzenia: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}<br/><br/>
+        <font size="8" color="#6b7280">
+        Uwaga: Ten raport służy wyłącznie celom informacyjnym.<br/>
+        W przypadku wykrycia problemów skonsultuj się z ekspertem.<br/>
+        Kontakt: info@aquaforest-lab.com
+        </font>
         </font>
         </para>
-        """.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+        """
         
-        story.append(Paragraph(footer_text, self.styles['WaterBodyText']))
+        story.append(Paragraph(footer_text, self.styles['ReportBodyText']))
     
+    # Pozostałe metody pozostają bez zmian...
     def get_report_path(self, analysis_id: str) -> str:
         """Get report file path"""
         return str(self.reports_dir / f"{analysis_id}.pdf")
@@ -395,4 +531,4 @@ class ReportGenerator:
             log_error(f"Report cleanup failed: {str(e)}", "REPORT_GENERATOR")
 
 # Global report generator instance
-report_generator = ReportGenerator() 
+report_generator = ReportGenerator()

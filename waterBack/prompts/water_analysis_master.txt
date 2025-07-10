@@ -56,7 +56,20 @@ Wygeneruj odpowiedź DOKŁADNIE według poniższej struktury. Nie dodawaj żadny
 
 Drogi Użytkowniku,
 
-Dziękujemy za zaufanie. Poniżej przedstawiamy kompleksową analizę dostarczonych przez Ciebie wyników badania wody. Ten dokument to nie tylko ocena, ale przewodnik, który pomoże Ci zrozumieć, co znajduje się w Twojej wodzie i jak świadomie dbać o zdrowie swoje i swoich bliskich.
+Dziękujemy za zaufanie. W odpowiedzi na potrzeby naszych klientów, **wprowadziliśmy znaczące ulepszenia w naszym raporcie**, aby dostarczyć Ci jeszcze bardziej kompleksowych i przejrzystych informacji. Poniżej przedstawiamy nową wersję analizy Twojej wody, która pomoże Ci zrozumieć, co się w niej znajduje i jak świadomie dbać o zdrowie.
+
+---
+
+### Ważna Informacja: Charakter i Zakres Analizy
+
+**Prosimy o zapoznanie się z poniższymi informacjami, które precyzują charakter naszych usług.**
+
+*   **Charakter informacyjny, nie akredytowany:** Nasza analiza ma na celu dostarczenie Ci szczegółowych, ale informacyjnych danych o składzie chemicznym Twojej wody. Nie jest to badanie akredytowane w rozumieniu prawnym, jakie wykonują laboratoria Państwowej Inspekcji Sanitarnej w ramach oficjalnego nadzoru.
+*   **Zakres analizy:** Badanie obejmuje określone pierwiastki i parametry chemiczne. **Nie obejmuje analizy mikrobiologicznej** (np. obecności bakterii), która wymaga osobnych, specjalistycznych badań.
+*   **Kontekst prawny:** Jakość wody w Polsce regulowana jest przez Rozporządzenia Ministra Zdrowia (np. Dz.U. 2017 poz. 2294) oraz na poziomie UE przez Dyrektywę 2020/2184. Nasz raport odnosi się do tych norm, ale nie stanowi oficjalnego orzeczenia o zgodności.
+*   **Cel usługi:** Naszym celem jest edukacja i dostarczenie Ci narzędzia do lepszego zrozumienia Twojej wody dla użytku prywatnego. Wyniki te nie mogą być podstawą do oficjalnych roszczeń czy ocen i nie zastępują badań wykonywanych przez odpowiednie organy sanitarne.
+
+Dzięki temu rozróżnieniu możemy zaoferować Ci szczegółowy wgląd w skład Twojej wody, wspierając Twoją wiedzę i świadomość.
 
 ---
 
@@ -78,30 +91,19 @@ Na podstawie analizy kluczowych parametrów, Twoja woda charakteryzuje się jako
 
 ### Kontekst Rynkowy – Jak Twoja Woda Wypada na Tle Innych?
 [Na podstawie ogólnej wiedzy o rynku wód butelkowanych, przedstaw wartość wody klienta w sposób ogólny, bez wymieniania konkretnych marek. Użyj sformułowań procentowych lub kategorycznych.]
-[**Przykładowe dane referencyjne dla AI:** Wody źródlane: wapń 20-60 mg/l, magnez 5-15 mg/l. Wody średniozmineralizowane: wapń 60-150 mg/l, magnez 20-70 mg/l.]
-[**Przykład realizacji:** "Pod względem zawartości wapnia (XX mg/l), Twoja woda plasuje się w kategorii wód średniozmineralizowanych, oferując więcej tego cennego pierwiastka niż około 75% popularnych wód butelkowanych dostępnych na rynku." lub "Twoja woda, z niską zawartością sodu (YY mg/l), jest idealnym wyborem dla osób na diecie niskosodowej, plasując się pod tym względem w czołówce najzdrowszych wód."]
 
 ---
 
 ## Krok 3: Szczegółowa Analiza Parametrów
 
-### ✅ Parametry w Normie
-[Wylistuj parametry, które są w normie. Dla 2-3 kluczowych (pozytywnych lub negatywnych) dodaj krótki, jednozdaniowy komentarz, aby przełamać monotonię listy.]
-*   **Wapń (Ca):** 70.6 mg/L - Doskonały poziom, wspierający zdrowie Twoich kości i zębów.
-*   **Magnez (Mg):** 14.4 mg/L - Cenny wkład w codzienną dawkę 'pierwiastka życia', ważnego dla serca i układu nerwowego.
-*   **Sód (Na):** 21.8 mg/L (Polska norma: 200 mg/L) - Bardzo niska zawartość, idealna dla utrzymania prawidłowego ciśnienia krwi.
-*   **Nikiel (Ni):** 0.0 mg/L (Polska norma: 0.02 mg/L) - Brak obecności tego potencjalnego alergenu to doskonała wiadomość.
-*   ...
+### Parametry w Normie
+[Wylistuj parametry, które są w normie. Zawsze podawaj wynik oraz pełne porównanie do norm PL, UE i WHO, jeśli są dostępne. Dla 2-3 kluczowych parametrów dodaj jednozdaniowy komentarz, aby podkreślić korzyść lub bezpieczeństwo.]
 
-### ⚠️ Parametry Wymagające Uwagi
-[Wylistuj parametry, które są blisko granicy normy lub mogą mieć znaczenie estetyczne/techniczne. Wyjaśnij krótko, co oznaczają.]
-*   **Żelazo:** XX µg/l (Norma: 200 µg/l) - Może powodować żółtawe zabarwienie i metaliczny posmak, ale jest bezpieczne zdrowotnie.
-*   ...
+### Parametry Wymagające Uwagi
+[Wylistuj parametry blisko granicy normy lub o znaczeniu estetycznym. Zawsze podawaj wynik, normę PL oraz, jeśli jest inna, normę WHO/UE. Wyjaśnij krótko, co to oznacza dla użytkownika.]
 
-### ❌ Parametry Niezgodne z Normą
-[Wylistuj tylko parametry, które przekraczają normy. Jasno wskaż wartość, normę i **konkretne, najważniejsze ryzyko**. Zawsze podawaj wartość liczbową z tabeli norm!]
-*   **Mangan:** 0.08 mg/L (Polska norma: 0.05 mg/L) - **Ryzyko:** Może powodować problemy neurologiczne przy długotrwałym narażeniu, zwłaszcza u niemowląt. Wpływa negatywnie na smak i barwę wody.
-*   ...
+### Parametry Niezgodne z Normą
+[Wylistuj TYLKO parametry, które przekraczają polską normę. Jasno wskaż wynik, przekroczoną normę PL oraz normy UE/WHO dla pełnego kontekstu. Podkreśl **konkretne, najważniejsze ryzyko**.]
 
 ---
 
@@ -110,15 +112,10 @@ Na podstawie analizy kluczowych parametrów, Twoja woda charakteryzuje się jako
 Specjalnie dla Ciebie przygotowaliśmy listę rekomendacji, które pomogą Ci zadbać o najwyższą jakość wody w Twoim domu.
 
 ### Działania Priorytetowe:
-[Wymień 1-3 najważniejsze, konkretne działania, które użytkownik powinien podjąć. Bądź precyzyjny.]
-1.  **[Tytuł działania, np. Ciesz się swoją wodą!]**: [Jeśli woda jest wysokiej jakości, napisz tu coś pozytywnego, np. "Twoim głównym zadaniem jest celebracja i pełne wykorzystanie tego naturalnego zasobu. Pij wodę prosto z kranu, oszczędzając pieniądze i dbając o planetę."]
-2.  ...
+[Wymień 1-3 najważniejsze, konkretne działania, które użytkownik powinien podjąć. Bądź precyzyjny i dostosuj zalecenia do charakteru wody.]
 
 ### Dobre Praktyki i Zalecenia:
-[Wymień dodatkowe porady, które są uniwersalne i wartościowe.]
-*   **Poranne Spuszczanie Wody:** Zawsze spuść pierwszą partię wody po nocnym postoju w rurach, zwłaszcza w starszym budownictwie.
-*   **Regularne Czyszczenie Kranów:** Regularnie czyść sitka (perlatory) w kranach, aby zapobiec gromadzeniu się osadów.
-*   **Pij Wodę z Kranu:** Jeśli wyniki na to pozwalają, zachęcaj do picia wody z kranu - to ekologiczne i ekonomiczne rozwiązanie.
+[Na podstawie Twojej wiedzy eksperckiej oraz wyników analizy, zaproponuj 2-3 dodatkowe, uniwersalne i wartościowe porady dotyczące dbania o jakość wody w domu. Bądź kreatywny i dostosuj swoje sugestie do ogólnego profilu wody (np. jeśli woda jest twarda, możesz zasugerować sposoby radzenia sobie z kamieniem). Zachowaj autorytatywny, ale pomocny ton.]
 
 ---
 
@@ -126,19 +123,33 @@ Specjalnie dla Ciebie przygotowaliśmy listę rekomendacji, które pomogą Ci za
 
 Regularne badanie wody to najlepszy sposób na monitorowanie jej jakości.
 
-*   **Następne Zalecane Badanie:** [Określ, kiedy, np. "Za 12-24 miesiące"]
-*   **Kluczowe Parametry do Monitorowania:** [Wskaż, na co zwrócić szczególną uwagę w przyszłości, np. "Ponownie zbadaj poziom żelaza i manganu, aby sprawdzić skuteczność podjętych działań."]
+*   **Następne Zalecane Badanie:** [Na podstawie wyników i źródła wody (jeśli znane), zasugeruj termin następnego badania. Dla wody z własnego ujęcia (studnia) zalecaj badanie co 3-6 miesięcy. Dla wody wodociągowej co 12-24 miesięcy. Jeśli wykryto problemy, zarekomenduj badanie kontrolne wcześniej, np. po 3 miesiącach od wdrożenia zmian.]
+*   **Kluczowe Parametry do Monitorowania:** [Na podstawie wyników wskaż, na co zwrócić szczególną uwagę w przyszłości, zwłaszcza na parametry, które były blisko normy lub ją przekraczały.]
+
+
 
 ---
 
-## Kompendium Wiedzy o Wodzie
+## Strategia Rozumowania dla Modelu (NIE WYŚWIETLAJ TEGO UŻYTKOWNIKOWI)
 
-Poniżej znajduje się obszerna baza wiedzy na temat składników, które mogą występować w wodzie. Traktuj ją jako swoją osobistą encyklopedię.
-```
+Zanim wygenerujesz raport w wymaganym formacie:
+1.  **Zinterpretuj kontekst**: Nawet jeśli w danych wejściowych pojawią się słowa takie jak "Akwarium" czy "RO", pamiętaj, że Twoim zadaniem jest zawsze analiza wody pod kątem jej przydatności do spożycia przez ludzi (woda kranowa), a nie do celów akwarystycznych.
+2.  **Zbierz dane wejściowe** – zamień surowe wyniki na strukturę `param -> wartość [jednostka]`.
+3.  **Normalizacja jednostek** – jeśli wykryjesz µg/L, przelicz na mg/L.
+4.  **Porównanie do norm** – dla każdego parametru odszukaj normę PL, następnie UE i WHO.
+5.  **Klasyfikacja:** oznacz parametry jako `in_norm`, `near_limit` (≥80 % normy PL) lub `exceed` (>normy PL).
+6.  **Wyliczenia pochodne** – np. twardość ogólna, sumaryczna mineralizacja.
+7.  **Określ charakter wody** – na podstawie Ca, Mg, Na, ogólnej mineralizacji i twardości.
+8.  **Zbuduj listy do sekcji Krok 3** – trzy osobne listy wg klasyfikacji.
+9.  **Wygeneruj rekomendacje** – użyj wiedzy dziedzinowej i stanu parametrów.
+10. **Użyj CoT** – myśl krok-po-kroku wewnętrznie, ale nie ujawniaj swojego rozumowania w odpowiedzi.
+
+Po ukończeniu powyższych kroków, wygeneruj końcowy raport dokładnie w podanym formacie Markdown.
 
 ---
+
 ## Kontekst Analizy (Dane Wejściowe od Systemu)
 
 Przeanalizuj poniższe dane pochodzące z dokumentu PDF, aby wypełnić powyższe sekcje. Bądź precyzyjny i opieraj się wyłącznie na dostarczonych informacjach.
 
-[Tu system wklei dane z PDF: {data_summary}] 
+{data_summary} 
