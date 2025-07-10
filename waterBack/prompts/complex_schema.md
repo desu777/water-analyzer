@@ -1,13 +1,4 @@
-# Mikroelementy w wodzie z kranu - kompendium
 
-## Spis treści
-
-1. **[Analiza zdatności twojej wody](#analiza-zdatności-twojej-wody)** - Interpretacja wyników przez AI
-2. **[Porównanie na tle innych wód](#porównanie-na-tle-innych-wód)** - Ranking i zestawienia
-3. **[Mikroelementy](#mikroelementy)** - Pierwiastki niezbędne w śladowych ilościach
-4. **[Zanieczyszczenia i składniki monitorowane](#zanieczyszczenia-i-składniki-monitorowane)** - Substancje pod ścisłą kontrolą
-5. **[Elementy główne](#elementy-główne)** - Składniki decydujące o mineralizacji
-6. **[Składniki odżywcze](#składniki-odżywcze)** - Fosfor i fosforany
 
 
 ---
@@ -682,26 +673,3 @@ Naturalne wody butelkowane zawierają minimalne ilości fosforanów. Woda z kran
 
 ---
 
-## Dodatkowe sekcje
-
-### Odpowiedzi AI/Modeli
-*[Tu można dodawać odpowiedzi z różnych modeli AI, porównania, analizy itp.]*
-
-### Badania naukowe
-*[Linki do najnowszych badań, publikacji naukowych]*
-
-### Praktyczne porady
-*[Wskazówki dotyczące testowania wody, filtracji, suplementacji]*
-
-### Aktualizacje prawne
-*[Zmiany w przepisach, nowe normy]*
-
----
-
-## Metadane dokumentu
-
-- **Ostatnia aktualizacja:** [data]
-- **Wersja:** 1.0
-- **Źródło:** Analiza mikroelementów w wodzie z kranu
-- **Język:** Polski
-- **Licencja:** [do określenia]

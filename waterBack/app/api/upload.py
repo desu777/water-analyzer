@@ -115,19 +115,28 @@ async def process_pdf_analysis(analysis_id: str, file_path: str):
             session.context.waterData = water_data
         
         # Perform AI analysis
-        analysis_result = await ai_analyzer.analyze_water_data(session.context)
+        analysis_result_markdown = await ai_analyzer.analyze_water_data(session.context)
         
+        # Append the knowledge base from complex_schema.md
+        try:
+            knowledge_base_content = await file_handler.read_file_async("prompts/complex_schema.md")
+            final_report_markdown = analysis_result_markdown + "\n\n---\n\n" + knowledge_base_content
+            log_info(f"Appended knowledge base to the report for {analysis_id}", "UPLOAD_API")
+        except Exception as e:
+            log_error(f"Could not append knowledge base for {analysis_id}: {str(e)}", "UPLOAD_API")
+            final_report_markdown = analysis_result_markdown # Fallback to AI result only
+            
         workflow_manager.update_step(analysis_id, "analysis", "completed", "Analiza AI zakończona")
         
         # Step 3: Generate PDF report
         workflow_manager.update_step(analysis_id, "generation", "processing", "Generowanie raportu PDF...")
         
-        report_path = await report_generator.generate_pdf_report(analysis_id, session.context, analysis_result)
+        report_path = await report_generator.generate_pdf_report(analysis_id, session.context, final_report_markdown)
         
         workflow_manager.update_step(analysis_id, "generation", "completed", "Raport PDF wygenerowany")
         
         # Step 4: Complete analysis
-        workflow_manager.complete_analysis(analysis_id, analysis_result)
+        workflow_manager.complete_analysis(analysis_id, final_report_markdown)
         
         # Cleanup uploaded file
         file_handler.delete_file(file_path)

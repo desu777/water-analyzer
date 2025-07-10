@@ -1,6 +1,7 @@
 import os
 import uuid
 import shutil
+import aiofiles
 from pathlib import Path
 from typing import Optional
 from fastapi import UploadFile
@@ -20,6 +21,17 @@ class FileHandler:
         for directory in [self.upload_dir, self.temp_dir, self.reports_dir]:
             directory.mkdir(parents=True, exist_ok=True)
     
+    async def read_file_async(self, file_path: str) -> str:
+        """Asynchronously read a text file."""
+        try:
+            async with aiofiles.open(file_path, mode='r', encoding='utf-8') as f:
+                content = await f.read()
+            log_debug(f"Successfully read file async: {file_path}", "FILE_HANDLER")
+            return content
+        except Exception as e:
+            log_error(f"Failed to read file async {file_path}: {str(e)}", "FILE_HANDLER")
+            raise
+
     def generate_unique_filename(self, original_filename: str) -> str:
         """Generate unique filename with UUID"""
         file_extension = Path(original_filename).suffix
